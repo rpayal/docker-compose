@@ -163,7 +163,7 @@ Go to http://localhost:5601/ with your browser. Then, you need to set up the ind
 
 Then, go to Discover tab to seek for the logs. As you can see, logs are properly collected into Elasticsearch + Kibana, via Fluentd.
 
-![Image of Kibana Logs](https://github.com/rpayal/docker-compose/images/kibana-logs.png)
+![Image of Kibana Logs](/images/kibana-logs.png)
 
 ### You can stop all containers by;
 ```
