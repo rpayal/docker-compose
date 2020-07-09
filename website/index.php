@@ -5,6 +5,12 @@
 
     <body>
         <h1>Welcome to my shop</h1>
+        <h2>
+            <?php
+                $resp = file_get_contents('http://product-service/hello');
+                echo json_decode($resp);
+            ?>
+        </h2>
         <ul>
             <?php
                 $json=file_get_contents('http://product-service');

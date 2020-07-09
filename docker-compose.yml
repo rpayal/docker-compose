@@ -8,6 +8,7 @@ services:
     ports:
       - '5001:80'
     links:
+      - redis
       - fluentd
     logging:
       driver: "fluentd"
@@ -31,6 +32,10 @@ services:
         fluentd-address: localhost:24224
         tag: httpd.access
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    
   fluentd:
     build: ./fluentd
     volumes:
