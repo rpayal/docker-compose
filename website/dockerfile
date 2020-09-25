@@ -1,0 +1,3 @@
+FROM php:apache
+RUN mkdir /app
+COPY index.php /app

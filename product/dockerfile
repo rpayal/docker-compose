@@ -1,4 +1,9 @@
 FROM python:3-onbuild
+RUN mkdir /app
 COPY . /usr/src/app
+COPY . /app
+WORKDIR /usr/src/app
+RUN pip install -r requirements.txt
 
+EXPOSE 5001
 CMD ["python", "api.py"]

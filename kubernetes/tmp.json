@@ -1,0 +1,41 @@
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+        "creationTimestamp": "2020-07-10T20:28:35Z",
+        "deletionTimestamp": "2020-07-10T23:16:23Z",
+        "name": "app-ns",
+        "resourceVersion": "50978",
+        "selfLink": "/api/v1/namespaces/app-ns",
+        "uid": "1a1b1e50-8539-4eb1-b8bb-b5d4635ee88f"
+    },
+    "spec": {
+        "finalizers": []
+    },
+    "status": {
+        "conditions": [
+            {
+                "lastTransitionTime": "2020-07-10T23:16:28Z",
+                "message": "Discovery failed for some groups, 3 failing: unable to retrieve the complete list of server APIs: compose.docker.com/v1alpha3: the server is currently unable to handle the request, compose.docker.com/v1beta1: the server is currently unable to handle the request, compose.docker.com/v1beta2: the server is currently unable to handle the request",
+                "reason": "DiscoveryFailed",
+                "status": "True",
+                "type": "NamespaceDeletionDiscoveryFailure"
+            },
+            {
+                "lastTransitionTime": "2020-07-10T23:16:28Z",
+                "message": "All legacy kube types successfully parsed",
+                "reason": "ParsedGroupVersions",
+                "status": "False",
+                "type": "NamespaceDeletionGroupVersionParsingFailure"
+            },
+            {
+                "lastTransitionTime": "2020-07-10T23:41:45Z",
+                "message": "All content successfully deleted",
+                "reason": "ContentDeleted",
+                "status": "False",
+                "type": "NamespaceDeletionContentFailure"
+            }
+        ],
+        "phase": "Terminating"
+    }
+}

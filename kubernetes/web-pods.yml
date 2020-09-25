@@ -1,0 +1,102 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: website-vol-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+status: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: product-service-vol-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+status: {}
+---
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: product-service
+  labels:
+    app: product-service
+    type: back-end
+spec:
+  containers:
+  - name: product-service
+    image: rpayal/product-service
+    imagePullPolicy: "Always"
+    volumeMounts:
+      - mountPath: /usr/src/app
+        name: product-service-storage
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "cp -r /app/. /usr/src/app; chmod -R 755 /usr/src/app; rm -rf /app"]
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "128m"
+    ports:
+      - containerPort: 80
+    env:                     # Environment variables passed to the container
+      - name: REDIS_HOST
+        value: redis
+      - name: REDIS_PORT
+        value: "6379"    
+  imagePullSecrets:
+  - name: regcred
+  restartPolicy: Always
+  serviceAccountName: ""
+  volumes:
+  - name: product-service-storage
+    persistentVolumeClaim:
+      claimName: product-service-vol-claim
+status: {}
+---
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: website
+  labels:
+    app: website
+    type: front-end
+spec:
+  containers:
+  - name: website
+    image: rpayal/website-php
+    imagePullPolicy: "Always"
+    volumeMounts:
+      - mountPath: /var/www/html
+        name: website-storage
+        #populateFromContainer: true
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; chmod -R 755 /var/www/html; rm -rf /app"]
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "128m"
+    ports:
+      - containerPort: 80
+        name: http
+        protocol: TCP
+  imagePullSecrets:
+  - name: regcred
+  restartPolicy: Always
+  serviceAccountName: ""
+  volumes:
+  - name: website-storage
+    persistentVolumeClaim:
+      claimName: website-vol-claim
+status: {}

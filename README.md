@@ -86,6 +86,8 @@ docker-compose stop
 # Integrating EFK to collect docker logs. Explains how to collect logs from various services.
 Changes made to collect Docker logs to EFK (Elasticsearch + Fluentd + Kibana) stack. 
 
+Elasticsearch is a search and analytics engine. Fluentd to receive, clean and parse the log data. Kibana lets users visualize data with charts and graphs in Elasticsearch
+
 Elasticsearch is an open source search engine known for its ease of use. Kibana is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
 
 By combining these three tools EFK (Elasticsearch + Fluentd + Kibana) we get a scalable, flexible, easy to use log collection and analytics pipeline.
@@ -168,4 +170,14 @@ Then, go to Discover tab to seek for the logs. As you can see, logs are properly
 ### You can stop all containers by;
 ```
 docker-compose stop
+```
+# Run inside K8S - create pod's and services's and replication controller for front-end website (2 instances)
+
+### To install full infrastructure;
+```
+sh install-infra.sh
+```
+### To un-install complete infrastructure;
+```
+sh uninstall.sh
 ```

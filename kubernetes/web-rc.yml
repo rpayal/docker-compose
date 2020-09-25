@@ -1,0 +1,36 @@
+apiVersion: "v1"
+kind: ReplicationController
+metadata:
+  name: website
+  labels:
+    name: website
+  namespace: app-ns
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: website
+      namespace: app-ns
+    spec:
+      containers:
+        - name: website
+          image: php:apache
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: website-storage        
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; chmod -R 755 /var/www/html; rm -rf /app"]
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: website-storage
+        persistentVolumeClaim:
+          claimName: website-vol-claim
+---
