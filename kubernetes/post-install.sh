@@ -5,7 +5,7 @@ kubectl get services -n app-ns
 kubectl get services -n logging-ns
 
 # Get NodePort for website service
-NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services webaite-v1-website-service --namespace website)
+NODE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services website --namespace app-ns)
 # Get external IP address for node (assumes single node).
 NODE_IP=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
 # If there is no ExternalIP, assume localhost

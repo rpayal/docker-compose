@@ -5,5 +5,14 @@ files:
     server.host: "0"
     ## For kibana < 6.6, use elasticsearch.url instead
     elasticsearch.hosts: http://elasticsearch-master:9200
+metadata:
+  name: kibana
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128M"
+  limits:
+    cpu: "100m"
+    memory: "128M"
 service:
-  type: LoadBalancer # ClusterIP
+  type: ClusterIP

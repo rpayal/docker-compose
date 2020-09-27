@@ -44,8 +44,8 @@ spec:
           command: ["/bin/sh", "-c", "cp -r /app/. /usr/src/app; chmod -R 755 /usr/src/app; rm -rf /app"]
     resources:
       limits:
-        memory: "128Mi"
-        cpu: "128m"
+        memory: "100Mi"
+        cpu: "100m"
     ports:
       - containerPort: 80
     env:                     # Environment variables passed to the container
@@ -85,8 +85,8 @@ spec:
           command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; chmod -R 755 /var/www/html; rm -rf /app"]
     resources:
       limits:
-        memory: "128Mi"
-        cpu: "128m"
+        memory: "100Mi"
+        cpu: "100m"
     ports:
       - containerPort: 80
         name: http

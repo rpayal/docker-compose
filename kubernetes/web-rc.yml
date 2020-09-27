@@ -10,7 +10,8 @@ spec:
   template:
     metadata:
       labels:
-        name: website
+        app: website
+        type: front-end
       namespace: app-ns
     spec:
       containers:
@@ -33,4 +34,3 @@ spec:
       - name: website-storage
         persistentVolumeClaim:
           claimName: website-vol-claim
----

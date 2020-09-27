@@ -5,15 +5,17 @@ kubectl create ns app-ns
 kubectl create ns logging-ns
 
 # Install Elasticsearch using helm
-helm repo add elastic https://helm.elastic.co
-helm install --name elasticsearch elastic/elasticsearch -f elastic-values.yml --namespace logging-ns
-#helm install --name elasticsearch stable/elasticsearch --namespace logging-ns
+#helm repo add elastic https://helm.elastic.co
+#helm install elasticsearch elastic/elasticsearch -f elastic-values.yml --namespace logging-ns
+kubectl create -f elastic-headless-service.yml -n logging-ns
+kubectl create -f elastic-statefulset.yml -n logging-ns
 
 # Deploy Kibana using Helm with the overridden configuration
-helm install --name kibana stable/kibana -f kibana-values.yml --namespace logging-ns
+#helm install kibana elastic/kibana -f kibana-values.yml --namespace logging-ns
+kubectl create -f kibana.yml -n logging-ns
 
 # Deploy Fluentd
-kubectl apply -f fluentd.yml -n logging-ns
+kubectl create -f fluentd.yml -n logging-ns
 
 # Deploy Redis-DB pod and service
 kubectl create -f db-pod.yml -n app-ns
@@ -26,3 +28,5 @@ kubectl create -f web-svcs.yml -n app-ns
 # Deploy ReplicationController
 kubectl create -f web-rc.yml -n app-ns
 
+# Call post installation script
+sh post-install.sh

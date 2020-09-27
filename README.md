@@ -181,3 +181,33 @@ sh install-infra.sh
 ```
 sh uninstall.sh
 ```
+
+### Some useful K8S command;
+```
+> to get all pods from namespace app-ns
+kubectl get pods -n app-ns
+
+> to get all poservicesds from namespace app-ns
+kubectl get services -n app-ns
+
+> Elastic search
+# You can monitor the StatefulSet as it is rolled out
+# kubectl rollout status statefulset/es-cluster -n logging-ns
+
+# Fast forward the local port 9200 to the port 9200 on one of the Elasticsearch 
+# nodes (es-cluster-0) using kubectl port-forward:
+# kubectl port-forward es-cluster-0 9200:9200 -n logging-ns
+
+# Then, in a separate terminal window, perform a curl request against the REST API:
+# For zsh shell escape (\) ? in url
+curl http://localhost:9200/_cluster/state?pretty
+
+> Kibana
+# Forward the local port 5601 to port 5601 on this kibana Pod
+kubectl port-forward kibana-6bcb546749-kxkdt 5601:5601 -n logging-ns
+```
+
+### StatefulSet 
+StatefulSet is the workload API object used to manage stateful applications. ... Like a DeploymentManages a replicated application on your cluster. , a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods.
+
+Deployments represent a set of multiple, identical Pods with no unique identities. A Deployment runs multiple replicas of your application and automatically replaces any instances that fail or become unresponsive. ... Deployments are managed by the Kubernetes Deployment controller.
